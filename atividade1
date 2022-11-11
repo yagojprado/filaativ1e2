@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct page {
+
+  char address[30];
+  int connectionType;
+  struct page *prox;
+};
+
+typedef struct page Page;
+
+Page *pilha;
+
+void add(char address) {
+  Page *p = (Page *)malloc(sizeof(Page));
+  p->address[0] = address;
+  p->prox = pilha;
+  pilha = p;
+}
+
+void rem() {
+  if (pilha == NULL) {
+    printf("\nPilha vazia");
+  } else {
+    pilha = pilha->prox;
+  }
+}
+
+void imprime(Page *p) {
+  if (p != NULL) {
+    printf("\nConnectionType:%c", p->address[0]);
+    imprime(p->prox);
+  }
+}
+
+int main(void) {
+
+  add('a');
+  add('b');
+  add('c');
+  add('d');
+  add('f');
+  add('g');
+  add('h');
+  add('i');
+  add('j');
+  add('k');
+
+  rem();
+
+  Page *pilhaAux = pilha;
+  imprime(pilhaAux);
+
+  return 0;
+}
